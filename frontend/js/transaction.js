@@ -1,6 +1,7 @@
 // API endpoint
 const baseUrl = 'http://localhost:3000'
 const categoryEndpoint = `${baseUrl}/categories`
+const transactionEndpoint = `${baseUrl}/transactions`
 
 // API call
 const getCategories = () => {
@@ -24,31 +25,50 @@ const getCategories = () => {
 }
 
 const transactionTypesAndIds = {
-  deposit: 1,
-  withdraw: 2,
-  transfer: 3,
+  Deposit: 1,
+  Withdraw: 2,
+  Transfer: 3,
 };
 
+/**
+ * Save new transaction
+ *
+ * @param {*} e
+ */
 const saveTransaction = (e) => {
     e.preventDefault();
 
-    const type = $("input[name='type']:checked").val();
-
-    // TODO: if type is transfer, accountIdFromTo else null
+    const accountId = Number($("select[name='accountId']").val());
+    const typeId = Number($("input[name='type']:checked").val());
+    const accountIdFrom = typeId === transactionTypesAndIds.Transfer ? accountId : null;
+    const accountIdTo = typeId === transactionTypesAndIds.Transfer ? Number($("select[name='accountIdTo']").val()) : null;
 
     const body =   {
       newTransaction:{
-        accountId: $("select[name='accountId']").val(),
-        accountIdFrom:"", // sender ID if type = 'Transfer', otherwise null
-        accountIdTo:"", // receiver ID if type = 'Transfer', otherwise null,
-        type, // 'Deposit', 'Withdraw', 'Transfer'
-        amount: $("input[name='amount']").val(), // amount of the transaction
-        categoryId: $("select[name='categoryId']").val(), // category ID
-        description: $("input[name='description']").val(), // description of the transaction
+        accountId,
+        accountIdFrom,
+        accountIdTo,
+        type: Object.keys(transactionTypesAndIds).find(key => transactionTypesAndIds[key] === typeId),
+        amount: $("input[name='amount']").val(),
+        categoryId: $("select[name='categoryId']").val(),
+        description: $("input[name='description']").val(),
       }
     }
 
     console.log(body);
+
+    $.ajax({
+      url: transactionEndpoint,
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(body),
+      success: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
 }
 
 $(function() {
