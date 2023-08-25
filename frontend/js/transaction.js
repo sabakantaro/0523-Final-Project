@@ -80,7 +80,7 @@ $(function() {
     $(`#${radioId}`).prop('checked', true);
   });
 
-  $('#transaction-form').submit(function(e) {
+  $('#transactionForm').submit(function(e) {
     saveTransaction(e);
   })
 });
@@ -114,7 +114,7 @@ typeButtons.forEach((button, index) => {
 // Cancel button
 document.getElementById('cancelButton').addEventListener('click', () => {
   // reset form values
-  document.getElementById('transaction-form').reset();
+  document.getElementById('transactionForm').reset();
 
   // reset type button active
   typeButtons.forEach((btn) => {
