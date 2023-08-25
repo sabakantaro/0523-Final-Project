@@ -8,7 +8,6 @@
     <!-- jQuery link -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-      defer
     ></script>
     <!-- font awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -19,36 +18,42 @@
   <body>
     <!-- myTrakr -->
     <main>
-      <div class="border-2 border-indigo-400 rounded-xl w-2/3 max-w-screen-md">
+      <form id="transaction-form" class="border-2 border-indigo-400 rounded-xl w-2/3 max-w-screen-md">
 
         <!-- card header -->
         <div class="flex justify-between px-8 py-4 border-b-2 border-b-indigo-400 rounded">
-          <button class="w-[30%] px-4 py-2 rounded-md transition text-white focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-500">
+          <button id="depositButton" class="type-button w-[30%] px-4 py-2 rounded-md transition text-white focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-500" data-radio-id="deposit">
             Deposit
           </button>
-          <button class="w-[30%] px-4 py-2 rounded-md transition text-black focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300">
+          <button id="withdrawButton" class="type-button w-[30%] px-4 py-2 rounded-md transition text-black focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300" data-radio-id="withdraw">
             Withdraw
           </button>
-          <button class="w-[30%] px-4 py-2 rounded-md transition text-black focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300">
+          <button id="transferButton" class="type-button w-[30%] px-4 py-2 rounded-md transition text-black focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300" data-radio-id="transfer">
             Transfer
           </button>
+        </div>
+        <div class="hidden">
+          <input type="radio" name="type" id="deposit" name="transactionType" value="1" checked>
+          <input type="radio" name="type" id="withdraw" name="transactionType" value="2">
+          <input type="radio" name="type" id="transfer" name="transactionType" value="3">
         </div>
 
         <!-- card body -->
         <div class="px-8 py-4">
 
-          <form class="flex flex-col items-center gap-10">
+          <!-- <form id="transaction-form" class="flex flex-col items-center gap-10"> -->
+          <div class="flex flex-col items-center gap-10">
 
             <div class="flex items-center justify-between gap-10 w-full">
-              <label for="account" class="block w-[10%]">Account:</label>
+              <label for="accountId" class="block w-[10%]">Account:</label>
               <div class="w-[80%] relative">
-                <select id="account" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
+                <select name="accountId" id="accountId" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-indigo-400">
-                    <i class="fas fa-chevron-down"></i> <!-- Font Awesome arrow-down icon -->
+                    <i class="fas fa-chevron-down"></i>
                 </div>
               </div>
             </div>
@@ -56,67 +61,53 @@
             <div class="flex items-center justify-between gap-10 w-full">
               <label for="category" class="block w-[10%]">Category:</label>
               <div class="w-[80%] relative">
-                <select id="category" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
+                <select id="category" name="categoryId" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
+                  <option value="">---</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-indigo-400">
-                    <i class="fas fa-chevron-down"></i> <!-- Font Awesome arrow-down icon -->
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Show if the type is "Transfer" -->
+            <div id="transferTo" class="hidden flex items-center justify-between gap-10 w-full">
+              <label for="" class="block w-[10%]">To:</label>
+              <div class="w-[80%] relative">
+                <select name="accountIdTo" id="accountIdTo" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-indigo-400">
+                    <i class="fas fa-chevron-down"></i>
                 </div>
               </div>
             </div>
 
             <div class="flex items-center justify-between gap-10 w-full">
               <label for="" class="block w-[10%]">Description:</label>
-              <input type="text" class="w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
+              <input type="text" name="description" class="w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
             </div>
 
             <div class="flex items-center justify-between gap-10 w-full">
               <label for="" class="block w-[10%]">Amount:</label>
-              <input type="text" class="w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
+              <input type="text" name="amount" class="w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
             </div>
 
             <div class="flex items-center justify-center gap-10 w-full">
-              <button type="button" class="w-32 p-1.5 border border-red-500 rounded-lg text-red-500">
+              <button type="button" id="cancelButton" class="w-32 p-1.5 border border-red-500 rounded-lg text-red-500 hover:opacity-75">
                 Cancel
               </button>
-              <button type="submit" class="w-32 p-1.5 border border-green-500 rounded-lg bg-green-500 text-white">
+              <button type="submit" class="w-32 p-1.5 border border-green-500 rounded-lg bg-green-500 text-white hover:opacity-75">
                 Confirm
               </button>
             </div>
-
-
           </form>
-
-
         </div>
-      </div>
-
-
-
-
-    <script>
-        const buttons = document.querySelectorAll('button');
-
-        buttons.forEach((button, index) => {
-            button.addEventListener('click', () => {
-                buttons.forEach((btn, i) => {
-                    if (i === index) {
-                        btn.classList.remove('bg-indigo-300');
-                        btn.classList.add('bg-indigo-500');
-                        btn.classList.add('text-white');
-                    } else {
-                        btn.classList.remove('bg-indigo-500');
-                        btn.classList.add('bg-indigo-300');
-                        btn.classList.remove('text-white')
-                    }
-                });
-            });
-        });
-    </script>
-
+      </form>
     </main>
+    <script src="./js/transaction.js"></script>
     <script src="./js/helpers/Account.js" defer></script>
     <script src="./js/helpers/Category.js" defer></script>
     <script src="./js/helpers/Common.js" defer></script>
