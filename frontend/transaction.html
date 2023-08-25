@@ -16,19 +16,19 @@
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
-    <!-- myTrakr -->
     <main>
+      <!-- Transaction card -->
       <form id="transactionForm" class="border-2 border-indigo-400 rounded-xl w-2/3 max-w-screen-md">
 
         <!-- card header -->
-        <div class="flex justify-between px-8 py-4 border-b-2 border-b-indigo-400 rounded">
-          <button type="button"  id="depositButton" class="type-button w-[30%] px-4 py-2 rounded-md transition text-white focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-500" data-radio-id="deposit">
+        <div class="flex justify-between px-2.5 md:px-8 py-4 border-b-2 border-b-indigo-400 rounded">
+          <button type="button"  id="depositButton" class="type-button w-[30%] md:px-4 py-2 rounded-md transition text-white text-xs md:text-base focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-500" data-radio-id="deposit">
             Deposit
           </button>
-          <button type="button" id="withdrawButton" class="type-button w-[30%] px-4 py-2 rounded-md transition text-black focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300" data-radio-id="withdraw">
+          <button type="button" id="withdrawButton" class="type-button w-[30%] md:px-4 py-2 rounded-md transition text-black text-xs md:text-base focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300" data-radio-id="withdraw">
             Withdraw
           </button>
-          <button type="button" id="transferButton" class="type-button w-[30%] px-4 py-2 rounded-md transition text-black focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300" data-radio-id="transfer">
+          <button type="button" id="transferButton" class="type-button w-[30%] md:px-4 py-2 rounded-md transition text-black text-xs md:text-base focus:outline-none active:bg-indigo-500 active:text-white bg-indigo-300" data-radio-id="transfer">
             Transfer
           </button>
         </div>
@@ -39,14 +39,12 @@
         </div>
 
         <!-- card body -->
-        <div class="px-8 py-4">
-
-          <!-- <form id="transactionForm" class="flex flex-col items-center gap-10"> -->
+        <div class="px-2.5 md:px-8 py-4">
           <div class="flex flex-col items-center gap-10">
 
-            <div class="flex items-center justify-between gap-10 w-full">
+            <div class="flex flex-col justify-between gap-2 w-full md:flex-row md:gap-10 md:items-center">
               <label for="accountId" class="block w-[10%]">Account:</label>
-              <div class="w-[80%] relative">
+              <div class="w-full relative md:w-[80%]">
                 <select name="accountId" id="accountId" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -58,9 +56,9 @@
               </div>
             </div>
 
-            <div class="flex items-center justify-between gap-10 w-full">
+            <div class="flex flex-col justify-between gap-2 w-full md:flex-row md:gap-10 md:items-center">
               <label for="category" class="block w-[10%]">Category:</label>
-              <div class="w-[80%] relative">
+              <div class="w-full relative md:w-[80%]">
                 <select id="category" name="categoryId" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
                   <option value="">---</option>
                 </select>
@@ -71,9 +69,9 @@
             </div>
 
             <!-- Show if the type is "Transfer" -->
-            <div id="transferTo" class="hidden flex items-center justify-between gap-10 w-full">
+            <div id="transferTo" class="hidden flex flex-col justify-between gap-2 w-full md:flex-row md:gap-10 md:items-center">
               <label for="" class="block w-[10%]">To:</label>
-              <div class="w-[80%] relative">
+              <div class="w-full relative md:w-[80%]">
                 <select name="accountIdTo" id="accountIdTo" class="w-full appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline">
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -85,14 +83,14 @@
               </div>
             </div>
 
-            <div class="flex items-center justify-between gap-10 w-full">
+            <div class="flex flex-col justify-between gap-2 w-full md:flex-row md:gap-10 md:items-center">
               <label for="" class="block w-[10%]">Description:</label>
-              <input type="text" name="description" class="w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
+              <input type="text" name="description" class="w-full md:w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
             </div>
 
-            <div class="flex items-center justify-between gap-10 w-full">
+            <div class="flex flex-col justify-between gap-2 w-full md:flex-row md:gap-10 md:items-center">
               <label for="" class="block w-[10%]">Amount:</label>
-              <input type="text" name="amount" class="w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
+              <input type="text" name="amount" class="w-full md:w-[80%] appearance-none bg-white border border-indigo-300 py-2 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:shadow-outline" />
             </div>
 
             <div class="flex items-center justify-center gap-10 w-full">
