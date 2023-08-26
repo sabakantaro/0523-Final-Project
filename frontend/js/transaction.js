@@ -3,7 +3,14 @@ const baseUrl = 'http://localhost:3000'
 const categoryEndpoint = `${baseUrl}/categories`
 const transactionEndpoint = `${baseUrl}/transactions`
 
+//------------------------------------
 // API call
+//------------------------------------
+
+/**
+ * Get all categories
+ *
+ */
 const getCategories = () => {
   $.ajax({
     url: categoryEndpoint,
@@ -23,6 +30,30 @@ const getCategories = () => {
     },
   });
 }
+
+/**
+ * Create new transaction
+ *
+ * @param {*} reqBody
+ */
+const createNewTransaction = (reqBody) => {
+  $.ajax({
+    url: transactionEndpoint,
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(reqBody),
+    success: (response) => {
+      console.log(response);
+    },
+    error: (err) => {
+      console.error(err);
+    },
+  });
+}
+
+//------------------------------------
+// Functions
+//------------------------------------
 
 const transactionTypesAndIds = {
   Deposit: 1,
@@ -57,20 +88,12 @@ const saveTransaction = (e) => {
 
     console.log(body);
 
-    $.ajax({
-      url: transactionEndpoint,
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(body),
-      success: (response) => {
-        console.log(response);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    createNewTransaction(body);
 }
 
+//------------------------------------
+// Event listeners
+//------------------------------------
 $(function() {
   getCategories();
 
