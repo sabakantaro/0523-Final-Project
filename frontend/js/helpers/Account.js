@@ -86,14 +86,14 @@ const baseHTML = `
       <div class="flex justify-between">
         <h2 class="text-2xl lg:text-5xl text-indigo-500 font-bold p-4 mb-4">Add New Accounts</h2>
       </div>
-      <div id="wrapper" class="border border-indigo-400 border-[2.5px] rounded-xl p-4 lg:p-[2rem]">
+      <div id="wrapper" class="border-indigo-400 border-[2.5px] rounded-xl p-4 lg:p-[2rem]">
         <form id="accountForm" class="space-y-4">
           <div class="w-full">
             <label for="newAccount" class="font-semibold text-lg lg:text-2xl">New Account:</label>
             <input type="text" id="newAccount" name="newAccount" class="text-md lg:text-xl border border-indigo-300 rounded-xl px-3 py-2 lg:px-4 lg:py-3 w-full">
           </div>
           <div class="grid justify-items-end">
-            <button type="submit" class="bg-indigo-500 text-white text-lg px-3 py-2 lg:px-4 lg:py-3 rounded-xl text-sm lg:text-2xl">Add new Account</button>
+            <button type="submit" class="bg-indigo-500 text-white px-3 py-2 lg:px-4 lg:py-3 rounded-xl text-sm lg:text-2xl">Add new Account</button>
           </div>
         </form>
         <div id="accountList" class="pt-[2rem]">
