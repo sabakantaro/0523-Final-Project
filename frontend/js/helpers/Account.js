@@ -1,4 +1,10 @@
 /**
+ * API Endpoints
+ * */
+const baseUrl = 'http://localhost:3000';
+const accountEndpoint = `${baseUrl}/accounts`;
+
+/**
  * Icons
  */
 const arrowRightIcon = `
@@ -16,7 +22,7 @@ const mobileMenuBarIcon = `
 const mobileMenuBarHTML = `
   <div id="mobileMenuBar" class="flex lg:hidden justify-between items-center bg-indigo-400 py-4 px-8 w-full">
     <div class="flex items-center space-x-4">
-      <h2 class="text-2xl lg:text-5xl text-white text-3xl font-bold">MyTrack</h2>
+      <h2 class="text-2xl lg:text-5xl text-white font-bold">MyTrack</h2>
     </div>
     <div id="mobileMenuBtn" class="flex items-center justify-center">
       ${mobileMenuBarIcon}
@@ -48,12 +54,11 @@ const transactionsIcon = `
   </svg>
 `;
 
-
 /**
  * HTML
  */
 const mobileMenuHTML = `
-  <div id="mobileMenu" class="hidden lg:hidden flex flex-col items-start justify-center space-y-4 px-4 absolute bg-white w-full">
+  <div id="mobileMenu" class="hidden lg:hidden space-y-4 px-4 absolute bg-white w-full">
     <a href="index.html" class="flex items-center space-x-4 p-2 w-full border-b">
       ${homeIcon}
       <p class="pl-5">Home</p>
@@ -113,7 +118,7 @@ const baseHTML = `
 const sideBarHTML = `
   <div id="sidebar" class="hidden lg:flex flex-col items-center justify-between lg:w-1/5 bg-gray-100 py-16">
     <div class="px-14 mb-4 w-full">
-      <h2 class="text-2xl lg:text-5xl text-indigo-500 text-3xl font-bold text-center">MyTrack</h2>
+      <h2 class="text-2xl lg:text-5xl text-indigo-500 font-bold text-center">MyTrack</h2>
       <div class="flex flex-col space-y-8 pt-16">
         <a href="index.html" class="bg-indigo-300 hover:bg-indigo-400 font-semibold py-4 px-5 rounded-xl text-2xl text-gray-800 flex relative">
           ${homeIcon}
@@ -146,7 +151,7 @@ const sideBarHTML = `
       </div>
     </div>
     <div class="flex flex-col items-center justify-center space-y-4">
-      <img src="../imgs/kinnikun.jpeg" alt="home" class="w-40 h-40 rounded-full border border-indigo-200 border-[10px]">
+      <img src="../imgs/kinnikun.jpeg" alt="home" class="w-40 h-40 rounded-full border-indigo-200 border-[10px]">
       <p class="text-2xl text-gray-800">Kinnikun Nakayama</p>
       <p class="text-xl text-gray-800">kinnikun@gmail.com</p>
     </div>
@@ -154,11 +159,10 @@ const sideBarHTML = `
 `;
 
 const toastHTML = `
-  <div id="accountToast" class="grid justify-items-center hidden w-full bg-green-500 text-white text-lg px-4 py-3 fixed -top-5">
-    <p>Account added successfully!</p>
+  <div id="accountToast" class="hidden w-full bg-green-500 text-white text-lg px-4 py-3 fixed -top-5">
+    <p class="text-center">Account added successfully!</p>
   </div>
 `;
-
 
 /**
  * Account Class
@@ -183,7 +187,7 @@ class Account {
 
   getAccounts() {
     $.ajax({
-      url: 'http://localhost:3000/accounts',
+      url: accountEndpoint,
       method: 'GET',
       success: function (response) {
         console.log('Success:', response);
@@ -192,7 +196,9 @@ class Account {
           accountListItems += `
             <tr>
               <td class="border-dashed border-t border-gray-200 text-center p-2">
-                <p class="font-semibold text-sm lg:text-xl">${account.username}</p>
+                <p class="font-semibold text-sm lg:text-xl">${
+                  account.username
+                }</p>
               </td>
               <td class="border-dashed border-t border-gray-200 text-right p-2">
                 <p class="font-semibold text-sm lg:text-xl">
@@ -230,7 +236,7 @@ class Account {
         const newAccount = $('#newAccount').val();
 
         $.ajax({
-          url: 'http://localhost:3000/accounts',
+          url: accountEndpoint,
           method: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({ newAccount: newAccount }),
