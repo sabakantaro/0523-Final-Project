@@ -2,6 +2,7 @@
 const baseUrl = 'http://localhost:3000'
 const categoryEndpoint = `${baseUrl}/categories`
 const transactionEndpoint = `${baseUrl}/transactions`
+const accountEndpoint = `${baseUrl}/accounts`
 
 //------------------------------------
 // API call
@@ -51,6 +52,52 @@ const createNewTransaction = (reqBody) => {
   });
 }
 
+const getAccounts = () => {
+  $.ajax({
+    url: accountEndpoint,
+    type: 'GET',
+    success: (response) => {
+      console.log(response);
+      const select = $('#accountId');
+      const transferToSelect = $('#accountIdTo');
+
+      transferToSelect.empty(); // Clear existing options
+
+      response.forEach(account => {
+        const option = $('<option>');
+        option.val(account.id);
+        option.text(account.username);
+
+        select.append(option);
+        transferToSelect.append(option.clone()); // Create a new option for transferToSelect
+      });
+    },
+    error: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+/**
+ *
+ *
+ * @param { [key: newAccount]: string } reqBody
+ */
+const createNewAccount = (reqBody) => {
+  $.ajax({
+    url: accountEndpoint,
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(reqBody),
+    success: (response) => {
+      console.log(response);
+    },
+    error: (err) => {
+      console.error(err);
+    },
+  });
+}
+
 //------------------------------------
 // Functions
 //------------------------------------
@@ -80,8 +127,8 @@ const saveTransaction = (e) => {
         accountIdFrom,
         accountIdTo,
         type: Object.keys(transactionTypesAndIds).find(key => transactionTypesAndIds[key] === typeId),
-        amount: $("input[name='amount']").val(),
-        categoryId: $("select[name='categoryId']").val(),
+        amount: Number($("input[name='amount']").val()),
+        categoryId: Number($("select[name='categoryId']").val()),
         description: $("input[name='description']").val(),
       }
     }
@@ -106,6 +153,37 @@ $(function() {
   $('#transactionForm').submit(function(e) {
     saveTransaction(e);
   })
+});
+
+// Create accounts
+const defaultAccounts = [
+  'account1',
+  'account2',
+  'account3',
+];
+const createDefaultAccounts = async () => {
+  for (const accountName of defaultAccounts) {
+    await createNewAccount({ newAccount: accountName });
+  }
+};
+const checkAccountsExist = () => {
+  $.ajax({
+    url: accountEndpoint,
+    type: 'GET',
+    success: (response) => {
+      accountsExist = response.length > 0;
+      if (!accountsExist) {
+        createDefaultAccounts();
+      }
+    },
+    error: (err) => {
+      console.error(err);
+    },
+  });
+}
+window.addEventListener('DOMContentLoaded', async () => {
+  checkAccountsExist();
+  await getAccounts();
 });
 
 // Type buttons
