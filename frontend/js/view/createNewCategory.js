@@ -207,6 +207,55 @@ $(document).ready(() => {
     createNewCategory();
   });
 
+  const highlightActiveLink = () => {
+    const currentPath = window.location.pathname.split("/").pop();
+    $("#sidebar a").each(function () {
+      const href = $(this).attr("href").split("/").pop();
+
+      if (currentPath === href) {
+        console.log(this);
+        $(this).addClass("bg-indigo-500");
+        $(this).children("div").removeClass("hidden");
+        $(this).children("svg").children("path").attr("fill", "#fff");
+        $(this)
+          .children("div")
+          .children("svg")
+          .children("path")
+          .attr("fill", "#fff");
+        $(this).children("p").addClass("text-white");
+      }
+    });
+  };
+
+  const toggleMobileMenu = () => {
+    $("#mobileMenuBtn").click(function () {
+      if ($("#mobileMenu").hasClass("hidden")) {
+        $("#mobileMenu").removeClass("hidden");
+        gsap.fromTo(
+          "#mobileMenu",
+          { opacity: 0, y: 0 },
+          { opacity: 1, y: 20, duration: 0.5, ease: "power1.out" }
+        );
+      } else {
+        gsap.fromTo(
+          "#mobileMenu",
+          { opacity: 1, y: 20 },
+          {
+            opacity: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "power1.out",
+            onComplete: function () {
+              $("#mobileMenu").addClass("hidden");
+            },
+          }
+        );
+      }
+    });
+  };
+
   // initially display the categories
   displayCategories();
+  toggleMobileMenu();
+  highlightActiveLink();
 });
