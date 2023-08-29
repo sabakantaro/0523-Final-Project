@@ -1,4 +1,5 @@
 const blueColor = "#6270E9";
+const users = [{ userName: "Kinnikun Nakayama", password: "muscle" }];
 
 $(document).ready(() => {
   $("body")
@@ -50,4 +51,17 @@ $(document).ready(() => {
         </div>
       </form>
     </div>`);
+  $("#login-btn").click(() => {
+    const usernameInput = $("#username").val();
+    const passwordInput = $("#password").val();
+    for (let i = 0; i < users.length; i++) {
+      const { userName, password } = users[i];
+      if (userName === usernameInput && password === passwordInput) {
+        alert("Logged in successfully!");
+        window.location.href = "/frontend/index.html";
+        return;
+      }
+    }
+    alert("Failed to Login.");
+  });
 });
