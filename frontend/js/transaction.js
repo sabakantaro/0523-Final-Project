@@ -45,9 +45,12 @@ const createNewTransaction = (reqBody) => {
     data: JSON.stringify(reqBody),
     success: (response) => {
       console.log(response);
+      alert('Success!');
+      resetForm();
     },
     error: (err) => {
       console.error(err);
+      alert('Something went wrong...')
     },
   });
 }
@@ -138,6 +141,28 @@ const saveTransaction = (e) => {
     createNewTransaction(body);
 }
 
+// Reset everything in the form
+const resetForm = () => {
+  // reset form values
+  document.getElementById('transactionForm').reset();
+
+  // reset type button active
+  typeButtons.forEach((btn) => {
+    if (btn.id === 'depositButton') {
+      btn.classList.remove('bg-indigo-300');
+      btn.classList.add('bg-indigo-500');
+      btn.classList.add('text-white');
+    } else {
+      btn.classList.remove('bg-indigo-500');
+      btn.classList.add('bg-indigo-300');
+      btn.classList.remove('text-white')
+    }
+  });
+
+  // reset transferTo section visibility
+  $('#transferTo').addClass('hidden');
+}
+
 //------------------------------------
 // Event listeners
 //------------------------------------
@@ -214,22 +239,31 @@ typeButtons.forEach((button, index) => {
 
 // Cancel button
 document.getElementById('cancelButton').addEventListener('click', () => {
-  // reset form values
-  document.getElementById('transactionForm').reset();
+  resetForm();
+});
 
-  // reset type button active
-  typeButtons.forEach((btn) => {
-    if (btn.id === 'depositButton') {
-      btn.classList.remove('bg-indigo-300');
-      btn.classList.add('bg-indigo-500');
-      btn.classList.add('text-white');
-    } else {
-      btn.classList.remove('bg-indigo-500');
-      btn.classList.add('bg-indigo-300');
-      btn.classList.remove('text-white')
-    }
-  });
-
-  // reset transferTo section visibility
-  $('#transferTo').addClass('hidden');
+// Toggle mobile button
+$('#mobileMenuBtn').click(function () {
+  if ($('#mobileMenu').hasClass('hidden')) {
+    $('#mobileMenu').removeClass('hidden');
+    gsap.fromTo(
+      '#mobileMenu',
+      { opacity: 0, y: 0 },
+      { opacity: 1, y: 20, duration: 0.5, ease: 'power1.out' }
+    );
+  } else {
+    gsap.fromTo(
+      '#mobileMenu',
+      { opacity: 1, y: 20 },
+      {
+        opacity: 0,
+        y: 0,
+        duration: 0.5,
+        ease: 'power1.out',
+        onComplete: function () {
+          $('#mobileMenu').addClass('hidden');
+        },
+      }
+    );
+  }
 });
