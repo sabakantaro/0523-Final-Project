@@ -291,25 +291,20 @@ const saveTransaction = (e) => {
   createNewTransaction(body);
 };
 
-// Reset everything in the form
 const resetForm = () => {
-  // reset form values
-  document.getElementById('transactionForm').reset();
+  // Reset form values
+  $('#transactionForm')[0].reset();
 
-  // reset type button active
-  typeButtons.forEach((btn) => {
+  // Reset type button active
+  $('.type-button').each((index, btn) => {
     if (btn.id === 'depositButton') {
-      btn.classList.remove('bg-indigo-300');
-      btn.classList.add('bg-indigo-500');
-      btn.classList.add('text-white');
+      $(btn).removeClass('bg-indigo-300').addClass('bg-indigo-500 text-white');
     } else {
-      btn.classList.remove('bg-indigo-500');
-      btn.classList.add('bg-indigo-300');
-      btn.classList.remove('text-white');
+      $(btn).removeClass('bg-indigo-500 text-white').addClass('bg-indigo-300');
     }
   });
 
-  // reset transferTo section visibility
+  // Reset transferTo section visibility
   $('#transferTo').addClass('hidden');
 };
 
@@ -358,38 +353,27 @@ window.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Type buttons
-const typeButtons = document.querySelectorAll('.type-button');
+$(document).on('click', '.type-button', function() {
+  $('.type-button').removeClass('bg-indigo-500 text-white').addClass('bg-indigo-300');
+  $(this).removeClass('bg-indigo-300').addClass('bg-indigo-500 text-white');
 
-typeButtons.forEach((button, index) => {
-  button.addEventListener('click', () => {
-    typeButtons.forEach((btn, i) => {
-      if (i === index) {
-        // active
-        btn.classList.remove('bg-indigo-300');
-        btn.classList.add('bg-indigo-500');
-        btn.classList.add('text-white');
-
-        // show transferTo section
-        btn.id === 'transferButton'
-          ? $('#transferTo').removeClass('hidden')
-          : $('#transferTo').addClass('hidden');
-      } else {
-        // non-active
-        btn.classList.remove('bg-indigo-500');
-        btn.classList.add('bg-indigo-300');
-        btn.classList.remove('text-white');
-      }
-    });
-  });
+  if (this.id === 'transferButton') {
+    $('#transferTo').removeClass('hidden');
+  } else {
+    $('#transferTo').addClass('hidden');
+  }
 });
 
+
 // Cancel button
-const cancelButton = document.getElementById('cancelButton');
-if (cancelButton) {
-  cancelButton.addEventListener('click', () => {
-    resetForm();
-  });
-}
+$(function () {
+  let cancelButton = $('#cancelButton');
+  if (cancelButton) {
+    cancelButton.click(function () {
+      resetForm();
+    });
+  }
+});
 
 // Toggle mobile button
 $('#mobileMenuBtn').click(function () {
