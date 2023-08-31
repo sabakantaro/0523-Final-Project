@@ -1,8 +1,8 @@
-const blueColor = "#6270E9";
-const users = [{ userName: "Kinnikun Nakayama", password: "muscle" }];
+const blueColor = '#6270E9';
+const users = [{ userName: 'Kinnikun Nakayama', password: 'muscle' }];
 
 $(document).ready(() => {
-  $("body")
+  $('body')
     .append(`  <div class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="w-full max-w-xs">
       <div class="bg-[${blueColor}] text-white text-center py-4">
@@ -51,17 +51,17 @@ $(document).ready(() => {
         </div>
       </form>
     </div>`);
-  $("#login-btn").click(() => {
-    const usernameInput = $("#username").val();
-    const passwordInput = $("#password").val();
+  $('#login-btn').click(() => {
+    const usernameInput = $('#username').val();
+    const passwordInput = $('#password').val();
     for (let i = 0; i < users.length; i++) {
       const { userName, password } = users[i];
       if (userName === usernameInput && password === passwordInput) {
-        alert("Logged in successfully!");
-        window.location.href = "/frontend/index.html";
+        alert('Logged in successfully!');
+        window.location.href = 'index.html';
         return;
       }
     }
-    alert("Failed to Login.");
+    alert('Failed to Login.');
   });
 });
