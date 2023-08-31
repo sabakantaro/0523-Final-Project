@@ -83,13 +83,13 @@ const baseHTML = `
         <h2 class="text-2xl lg:text-5xl text-indigo-500 font-bold p-4 mb-4">Add New Categories</h2>
       </div>
       <div id="wrapper" class="border-indigo-400 border-[2.5px] rounded-xl p-4 lg:p-[2rem]">
-        <form id="CategoryForm" class="space-y-4">
+        <form id="categoryForm" class="space-y-4">
           <div class="w-full">
             <label for="newCategory" class="font-semibold text-lg lg:text-2xl">New Category:</label>
             <input type="text" id="newCategory" name="newCategory" class="text-md lg:text-xl border border-indigo-300 rounded-xl px-3 py-2 lg:px-4 lg:py-3 w-full">
           </div>
           <div class="grid justify-items-end">
-            <button id="add-category-btn" type="submit" class="bg-indigo-500 text-white px-3 py-2 lg:px-4 lg:py-3 rounded-xl text-sm lg:text-2xl">Add new Category</button>
+            <button type="submit" class="bg-indigo-500 text-white px-3 py-2 lg:px-4 lg:py-3 rounded-xl text-sm lg:text-2xl">Add new Category</button>
           </div>
         </form>
         <div id="categoryList" class="pt-[2rem]">
@@ -184,7 +184,8 @@ $(document).ready(() => {
   };
 
   // func to create a new category
-  const createNewCategory = () => {
+  const createNewCategory = (e) => {
+    e.preventDefault();
     const inputValue = $("#newCategory").val();
     Category.postNewCategory(inputValue);
     const toast = document.getElementById("categoryToast");
@@ -203,8 +204,8 @@ $(document).ready(() => {
     }, 2000);
   };
 
-  $("#add-category-btn").click(() => {
-    createNewCategory();
+  $("#categoryForm").submit((e) => {
+    createNewCategory(e);
   });
 
   const highlightActiveLink = () => {
