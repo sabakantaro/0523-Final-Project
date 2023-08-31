@@ -1,6 +1,6 @@
-const baseUrl = "http://localhost:3000/";
-const url = `${baseUrl}categories`;
-class Category {
+import { categoryEndpoint } from './Common.js';
+
+export class Category {
   constructor(id, name) {
     this.id = id;
     this.name = name;
@@ -9,10 +9,10 @@ class Category {
   // get all categories
   static async getCategories() {
     try {
-      const res = await fetch(url);
+      const res = await fetch(categoryEndpoint);
 
       if (!res.ok) {
-        throw new Error("Failed to fetch categories");
+        throw new Error('Failed to fetch categories');
       } else {
         const data = await res.json();
         return data;
@@ -26,7 +26,7 @@ class Category {
   static async getCategoryWithId(id) {
     const categories = await Category.getCategories();
     if (!categories) {
-      throw new Error("Failed to fetch categories");
+      throw new Error('Failed to fetch categories');
     }
 
     for (let i = 0; i < categories.length; i++) {
@@ -39,17 +39,17 @@ class Category {
   // post a new category
   static async postNewCategory(newCategory) {
     const requestOptions = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         newCategory,
       }),
     };
-    fetch(url, requestOptions)
+    fetch(categoryEndpoint, requestOptions)
       .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok");
+        if (!res.ok) throw new Error('Network response was not ok');
       })
       .catch((error) => {
         console.error(error);
