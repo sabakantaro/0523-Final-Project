@@ -73,7 +73,7 @@ export const mobileMenuHTML = `
       ${accountsIcon}
       <p class="pl-5">Accounts</p>
     </a>
-    <a href="categories.html" class="flex items-center space-x-4 p-2 w-full border-b">
+    <a href="transactions.html" class="flex items-center space-x-4 p-2 w-full border-b">
       ${transactionsIcon}
       <p class="pl-5">Transactions</p>
     </a>
