@@ -69,25 +69,30 @@ const getTransactions = async (params) => {
   const data = await res.json();
   const accounts = await getAccounts();
   const categories = await getCategories();
+  let concatenatedArray = [];
+  data.forEach((arr) => {
+    concatenatedArray = [...concatenatedArray, ...arr];
+  });
+  console.log(concatenatedArray);
 
   if (params) {
     filterParams = { ...filterParams, ...params };
   }
 
   if (filterParams.accountId) {
-    data[0] = data[0].filter(
+    concatenatedArray = concatenatedArray.filter(
       (transaction) => transaction.accountId === Number(filterParams.accountId)
     );
   }
 
   if (filterParams.type) {
-    data[0] = data[0].filter(
+    concatenatedArray = concatenatedArray.filter(
       (transaction) => transaction.type.toLowerCase() === filterParams.type
     );
   }
 
   if (filterParams.categoryId) {
-    data[0] = data[0].filter(
+    concatenatedArray = concatenatedArray.filter(
       (transaction) =>
         transaction.categoryId === Number(filterParams.categoryId)
     );
@@ -95,7 +100,7 @@ const getTransactions = async (params) => {
 
   let tempBalance = 0;
 
-  data[0].forEach((transaction) => {
+  concatenatedArray.forEach((transaction) => {
     const {
       accountId,
       accountIdFrom,
